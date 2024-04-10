@@ -1,9 +1,9 @@
-import About_Me from '../About_Me';
+import Bookings from '../Bookings';
 
 const Home = () => {
   return (
     <>
-      <About_Me/>
+      <Bookings/>
     </>
   );
 };

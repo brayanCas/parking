@@ -5,6 +5,7 @@ const mongoose = require('mongoose');
 const uri = 'mongodb+srv://kfc_test:kfc_test@cluster0.5dr7egc.mongodb.net/parkingDB';
 const User = require('./models/User');
 const Vehicle = require('./models/Vehicle');
+const Space = require('./models/Space');
 const cors = require('cors');
 app.use(cors());
 app.use(express.json());
@@ -16,6 +17,22 @@ app.get('/', (req, res) => {
 
 
 /* usuarios */
+//get usuario por id
+app.get('/users/:userId', async (req, res) => {
+  try {
+    const userId = req.params.userId;
+   
+    const user = await User.findById(userId);
+    if (!user) {   
+      return res.status(404).json({ message: 'Usuario no encontrado' });
+    }  
+    res.json(user);
+  } catch (error) {
+    console.error('Error al obtener usuario por ID:', error);
+    res.status(500).json({ message: 'Error al obtener usuario por ID' });
+  }
+});
+
 
 //get usuarios
 app.get('/users', async (req, res) => {
@@ -139,6 +156,21 @@ app.put('/vehicles/:vehicleId', async (req, res) => {
     res.status(500).json({ message: 'Error al actualizar vehículo' });
   }
 });
+
+/* ESPACIOS */
+//get espacios
+app.get('/spaces', async (req, res) => {
+  try {      
+    const spaces = await Space.find({});      
+    res.json(spaces);
+  } catch (error) {
+    
+    console.error('Error al obtener espacios:', error);
+    res.status(500).json({ message: 'Error al obtener espacios' });
+  }
+});
+
+
 
 mongoose.connect(uri, {
   useNewUrlParser: true,

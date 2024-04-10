@@ -3,7 +3,7 @@ import Home from '../Home';
 import Users from '../Users'
 import Navbar from '../../Components/Navbar';
 import Vehicle from '../Vehicle';
-import About_Me from '../About_Me';
+import Bookings from '../Bookings';
 import './App.css'
 import Footer from '../../Components/Footer';
 import Pomodoro from '../Pomodoro';
@@ -15,7 +15,7 @@ const AppRoutes = () => {
     { path:'/', element:<Home />},
     { path: '/Users', element: <Users /> },    
     { path: '/Vehicle', element: <Vehicle /> },    
-    { path: '/About_Me', element: <About_Me /> },
+    { path: '/Bookings', element: <Bookings /> },
     { path: '/Pomodoro', element: <Pomodoro /> },
   ])
   return routes

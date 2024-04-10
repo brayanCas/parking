@@ -18,7 +18,7 @@ const activeStyle = 'underline underline-offset-4'
                 </NavLink>
             </li>
             <li>
-                <NavLink to='/about_me' className="text-white hover:text-gray-100 transition duration-300 ease-in-out">
+                <NavLink to='/bookings' className="text-white hover:text-gray-100 transition duration-300 ease-in-out">
                Reservar
                 </NavLink>
             </li>

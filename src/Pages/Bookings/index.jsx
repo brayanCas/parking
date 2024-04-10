@@ -2,9 +2,10 @@ import React, { useState, useEffect } from 'react';
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
-const Vehicle = () => {
+const Bookings = () => {
   const [vehicles, setVehicles] = useState([]);
   const [users, setUsers] = useState([]);
+  const [spaces, setSpaces] = useState([]);
   const [isEditing, setIsEditing] = useState(false);
   const [formData, setFormData] = useState({
     plate: '',
@@ -41,9 +42,25 @@ const Vehicle = () => {
     }
   };
 
+  const fetchSpaces = async () => {
+    try {
+      const response = await fetch('http://localhost:3000/spaces');
+      if (!response.ok) {
+        throw new Error('Error al obtener usuarios');
+      }
+    
+      const dataSpaces = await response.json();
+      console.log('dataSpaces',dataSpaces);
+      setSpaces(dataSpaces);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
   useEffect(() => {
     fetchUsers();
     fetchVehicles();
+    fetchSpaces();
   }, []);
 
   const handleSubmit = async (e) => {
@@ -137,8 +154,41 @@ const Vehicle = () => {
   return (
     <div className="min-h-screen flex flex-col">
       <div className="flex-grow bg-gradient-to-r p-8">
-        <h1 className="text-4xl font-bold mb-4 mt-9">Gestionar vehículos</h1>
+        <h1 className="text-4xl font-bold mb-4 mt-9">Gestionar Reservas</h1>
         <hr className="border-b-2 mb-6" />
+       
+       
+        <div>
+  {[0, 1, 2].map((row) => (
+    <div key={row} style={{ display: 'flex' }}>
+      {[0, 1, 2].map((col) => {
+        const spaceIndex = row * 3 + col;
+        const space = spaces[spaceIndex];
+        const isAvailable = space && space.available;
+
+        return (
+          <div key={col} style={{ margin: '5px' }}>
+            <p>Espacio: {spaceIndex + 1}</p>
+            {isAvailable ? (
+              <div>
+                <img src="src\assets\imgs\green_car.jpg" alt="Green Car Icon" style={{ width: '50px', height: '50px' }}/>
+                <label style={{ color: 'green' }}>Libre</label>
+              </div>
+            ) : (
+              <div>
+                <img src="src\assets\imgs\red_car.jpg" alt="Red Car Icon"style={{ width: '50px', height: '50px' }} />
+                <label style={{ color: 'red' }}>Ocupado</label>
+              </div>
+            )}
+          </div>
+        );
+      })}
+    </div>
+  ))}
+</div>
+
+
+
 
         <div className="flex justify-center">
           <div className="flex-grow border rounded-lg p-4 mr-4 bg-white max-w-sm">
@@ -226,4 +276,4 @@ const Vehicle = () => {
   );
 };
 
-export default Vehicle;
+export default Bookings;
