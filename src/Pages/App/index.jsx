@@ -6,7 +6,7 @@ import Vehicle from '../Vehicle';
 import Bookings from '../Bookings';
 import './App.css'
 import Footer from '../../Components/Footer';
-import Pomodoro from '../Pomodoro';
+import CheckIn from '../CheckIn';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
@@ -16,7 +16,7 @@ const AppRoutes = () => {
     { path: '/Users', element: <Users /> },    
     { path: '/Vehicle', element: <Vehicle /> },    
     { path: '/Bookings', element: <Bookings /> },
-    { path: '/Pomodoro', element: <Pomodoro /> },
+    { path: '/CheckIn', element: <CheckIn /> },
   ])
   return routes
 }

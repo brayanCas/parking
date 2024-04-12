@@ -2,17 +2,15 @@ const mongoose = require('mongoose');
 
 const bookingSchema = new mongoose.Schema({
   userId: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: 'User',
+    type: String,
     required: true
   },
   vehicleId: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: 'Vehicle',
+    type: String,
     required: true
   },
-  bookingId: {
-    type: mongoose.Schema.Types.ObjectId,
+  spaceId: {
+    type: String,
     required: true
   },
   dateStart: {
@@ -29,6 +27,6 @@ const bookingSchema = new mongoose.Schema({
   }
 });
 
-const booking = mongoose.model('booking', bookingSchema);
+const Booking = mongoose.model('Booking', bookingSchema);
 
-module.exports = booking;
+module.exports = Booking;

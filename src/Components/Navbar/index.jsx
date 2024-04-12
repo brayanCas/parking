@@ -23,7 +23,7 @@ const activeStyle = 'underline underline-offset-4'
                 </NavLink>
             </li>
             <li>
-                <NavLink to='/pomodoro' className="text-white hover:text-gray-100 transition duration-300 ease-in-out">
+                <NavLink to='/checkIn' className="text-white hover:text-gray-100 transition duration-300 ease-in-out">
                 Facturar reserva 
                 </NavLink>
             </li>

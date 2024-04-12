@@ -6,6 +6,7 @@ const uri = 'mongodb+srv://kfc_test:kfc_test@cluster0.5dr7egc.mongodb.net/parkin
 const User = require('./models/User');
 const Vehicle = require('./models/Vehicle');
 const Space = require('./models/Space');
+const Booking = require('./models/Booking');
 const cors = require('cors');
 app.use(cors());
 app.use(express.json());
@@ -170,6 +171,53 @@ app.get('/spaces', async (req, res) => {
   }
 });
 
+
+/**RESERVAS */
+// Crear reserva
+app.post('/bookings', async (req, res) => {
+  try {
+    const { userId, vehicleId, spaceId, dateStart,dateEnd, minuteValue } = req.body;    
+    const newBooking = new Booking({ userId, vehicleId, spaceId, dateStart,dateEnd, minuteValue });
+    console.log('newBooking',newBooking);
+    await newBooking.save();
+    
+    res.status(201).json(newBooking);
+  } catch (error) {
+    console.log('newBookingError');
+    console.error('Error al crear reserva:', error);
+    res.status(500).json({ message: 'Error al crear reserva' });
+  }
+});
+
+//get reserva
+app.get('/bookings', async (req, res) => {
+  try {      
+    const bookings = await Booking.find({});      
+    res.json(bookings);
+  } catch (error) {
+    
+    console.error('Error al obtener reservas:', error);
+    res.status(500).json({ message: 'Error al obtener reservas' });
+  }
+});
+
+
+// Actualizar disponibilidad del espacio
+app.put('/spaces/:spaceId', async (req, res) => {
+  try {
+    const spaceId = req.params.spaceId;
+    const updatedSpace = await Space.findByIdAndUpdate(spaceId, { available: false }, { new: true });
+
+    if (!updatedSpace) {
+      return res.status(404).json({ message: 'Espacio no encontrado' });
+    }
+
+    res.status(200).json({ message: 'Disponibilidad del espacio actualizada exitosamente', space: updatedSpace });
+  } catch (error) {
+    console.error('Error al actualizar disponibilidad del espacio:', error);
+    res.status(500).json({ message: 'Error al actualizar disponibilidad del espacio' });
+  }
+});
 
 
 mongoose.connect(uri, {
